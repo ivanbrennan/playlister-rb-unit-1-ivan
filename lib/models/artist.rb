@@ -2,7 +2,6 @@ class Artist
 
   attr_accessor :name
   attr_reader :songs, :genres
-
   @@all = []
 
   def self.all
@@ -25,7 +24,8 @@ class Artist
 
   def add_song(song)
     songs << song
-    genres << song.genre
+    (song.genre && genres << song.genre) &&
+      (!song.genre.artists.include?(self) && song.genre.artists << self)
   end
 
   def songs=(song_arr)
